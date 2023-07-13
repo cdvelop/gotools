@@ -1,36 +1,41 @@
 package gotools
 
 import (
-	"bufio"
-	"log"
 	"os"
 	"strings"
 )
 
 // ej: gotools.TextExists(index.html", "info_id")
-func TextExists(file_name string, text_search string) int {
+// gotools.TextExists(static\main.js", "js\code.js")
+func TextExists(file_path string, text_search_or_path_content string) int {
 
-	file, err := os.Open(file_name)
+	file_content, err := os.ReadFile(file_path)
 	if err != nil {
-		log.Fatal(err)
-
+		return 0
 	}
-	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
-	count := 0
-	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.Contains(line, text_search) {
-			count++
+	// Variable para almacenar el contenido del archivo
+	var text_search string
+
+	for _, value := range []string{".", "\\", "/"} {
+		// puede que sea una ruta
+		if strings.Contains(text_search_or_path_content, value) {
+
+			search_content, err := os.ReadFile(text_search_or_path_content)
+			if err == nil {
+				text_search = string(search_content)
+			}
+
+			break
 		}
 	}
 
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-
+	if text_search == "" {
+		text_search = text_search_or_path_content
 	}
 
-	return count
+	// fmt.Printf("TEXTO A BUSCAR: [%v]\n", text_search)
+
+	return strings.Count(string(file_content), text_search)
 
 }
