@@ -10,7 +10,7 @@ import (
 func DeleteFilesByExtension(dir string, exts []string) error {
 	files, err := os.ReadDir(dir)
 	if err != nil {
-		return fmt.Errorf("Error reading directory: %s\n", err)
+		return err
 	}
 
 	for _, file := range files {

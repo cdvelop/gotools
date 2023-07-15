@@ -19,12 +19,38 @@ func TestGetInputNamesFromGoFile(t *testing.T) {
 	for testName, data := range testData {
 		t.Run(testName, func(t *testing.T) {
 
-			resp := gotools.GetNamesFromFileAndPattern(data.file_path, data.pattern)
+			resp, err := gotools.GetNamesFromFileAndPattern(data.file_path, data.pattern)
 
 			// Comparar elemento por elemento
 			for i, valor := range resp {
 				if valor != data.expected[i] {
-					log.Fatalf("se esperaba %v, pero se obtuvo %v", data.expected[i], valor)
+					log.Fatalf("se esperaba %v, pero se obtuvo %v\nerr: %v", data.expected[i], valor, err)
+				}
+			}
+
+		})
+	}
+}
+
+func TestGetNamesFromDirectoryExtensionAndPattern(t *testing.T) {
+	var testData = map[string]struct {
+		file_path string
+		extension string
+		pattern   string
+		expected  []string
+	}{
+		"búsqueda en 2 archivos goo, Phone repetido": {"test", ".goo", `Input: input\.(\w+)\(\)`, []string{"Phone", "RadioGenero", "TextArea"}},
+	}
+
+	for testName, data := range testData {
+		t.Run(testName, func(t *testing.T) {
+
+			resp, err := gotools.GetNamesFromDirectoryExtensionAndPattern(data.file_path, data.extension, data.pattern)
+
+			// Comparar elemento por elemento
+			for i, valor := range resp {
+				if valor != data.expected[i] {
+					log.Fatalf("se esperaba %v, pero se obtuvo %v\nresp:%v\nerr: %v", data.expected[i], valor, resp, err)
 				}
 			}
 

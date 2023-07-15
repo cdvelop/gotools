@@ -50,11 +50,7 @@ func FindFilesWithNonZeroSize(dir string, filenames []string) error {
 
 func FindFile(dir, file_name string) (content string, err error) {
 
-	if dir == "" || file_name == "" {
-		return "", fmt.Errorf("el parámetro dir o file_name no pueden estar vacíos")
-	}
-
-	files, err := os.ReadDir(dir)
+	files, err := FileCheck(dir, file_name)
 	if err != nil {
 		return "", err
 	}
@@ -77,11 +73,7 @@ func FindFile(dir, file_name string) (content string, err error) {
 
 func FindFirstFileWithExtension(dir, extension string) (content string, err error) {
 
-	if dir == "" || extension == "" {
-		return "", fmt.Errorf("el parámetro dir o extension no pueden estar vacíos")
-	}
-
-	files, err := os.ReadDir(dir)
+	files, err := FileCheck(dir, extension)
 	if err != nil {
 		return "", err
 	}
