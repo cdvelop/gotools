@@ -47,3 +47,62 @@ func FindFilesWithNonZeroSize(dir string, filenames []string) error {
 
 	return nil
 }
+
+func FindFile(dir, file_name string) (content string, err error) {
+
+	if dir == "" || file_name == "" {
+		return "", fmt.Errorf("el parámetro dir o file_name no pueden estar vacíos")
+	}
+
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		return "", err
+	}
+
+	for _, file := range files {
+		if !file.IsDir() && file.Name() == file_name {
+
+			file_path := filepath.Join(dir, file.Name())
+
+			content, err := os.ReadFile(file_path)
+			if err != nil {
+				return "", err
+			}
+			return string(content), nil
+		}
+	}
+
+	return "", fmt.Errorf("archivo %v no encontrado", file_name)
+}
+
+func FindFirstFileWithExtension(dir, extension string) (content string, err error) {
+
+	if dir == "" || extension == "" {
+		return "", fmt.Errorf("el parámetro dir o extension no pueden estar vacíos")
+	}
+
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		return "", err
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+
+		if extension == filepath.Ext(file.Name()) {
+			file_path := filepath.Join(dir, file.Name())
+
+			content, err := os.ReadFile(file_path)
+			if err != nil {
+				return "", err
+			}
+			return string(content), nil
+
+		}
+
+	}
+
+	return "", fmt.Errorf("extension %v no encontrada", extension)
+}

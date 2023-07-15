@@ -7,12 +7,12 @@ import (
 )
 
 // ej: gotools.DeleteFiles(main_folder\files, []string{".js", ".css", ".wasm"})
-func DeleteFiles(dir string, exts []string) {
+func DeleteFiles(dir string, exts []string) error {
 	files, err := os.ReadDir(dir)
 	if err != nil {
-		fmt.Printf("Error reading directory: %s\n", err)
-		return
+		return fmt.Errorf("Error reading directory: %s\n", err)
 	}
+
 	for _, file := range files {
 		if file.IsDir() {
 			continue
@@ -28,4 +28,6 @@ func DeleteFiles(dir string, exts []string) {
 			}
 		}
 	}
+
+	return nil
 }
