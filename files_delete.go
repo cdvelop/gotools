@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 )
 
-// ej: gotools.DeleteFiles(main_folder\files, []string{".js", ".css", ".wasm"})
-func DeleteFiles(dir string, exts []string) error {
+// ej: gotools.DeleteFilesByExtension(main_folder\files, []string{".js", ".css", ".wasm"})
+func DeleteFilesByExtension(dir string, exts []string) error {
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		return fmt.Errorf("Error reading directory: %s\n", err)
