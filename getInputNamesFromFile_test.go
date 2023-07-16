@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/cdvelop/gotools"
+	"github.com/cdvelop/model"
 )
 
 func TestGetInputNamesFromGoFile(t *testing.T) {
@@ -13,7 +14,7 @@ func TestGetInputNamesFromGoFile(t *testing.T) {
 		pattern   string
 		expected  []string
 	}{
-		"búsqueda de inputs_1 se esperan 3": {"test/inputs_1.txt", `Input: input\.(\w+)\(\)`, []string{"Phone", "RadioGenero", "TextArea"}},
+		"búsqueda de inputs_1 se esperan 3": {"test/inputs_1.txt", model.INPUT_PATTERN, []string{"Phone", "RadioGenero", "TextArea"}},
 	}
 
 	for testName, data := range testData {
@@ -39,7 +40,7 @@ func TestGetNamesFromDirectoryExtensionAndPattern(t *testing.T) {
 		pattern   string
 		expected  []string
 	}{
-		"búsqueda en 2 archivos goo, Phone repetido": {"test", ".goo", `Input: input\.(\w+)\(\)`, []string{"Phone", "RadioGenero", "TextArea"}},
+		"búsqueda en 2 archivos goo, Phone repetido": {"test", ".goo", model.INPUT_PATTERN, []string{"Phone", "RadioGenero", "TextArea"}},
 	}
 
 	for testName, data := range testData {
