@@ -52,12 +52,40 @@ func ReadFile(file string, buffer_out *bytes.Buffer) error {
 	return nil
 }
 
-func ReadStringContentFile(file string) (string, error) {
-	// Leemos el contenido del archivo
-	content, err := os.ReadFile(file)
+// ej: dir/files, .svg
+func AddStringContendFromDirAndExtension(dir, ext string, out *string) error {
+	files, err := os.ReadDir(dir)
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	return string(content), nil
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+
+		if ext == filepath.Ext(file.Name()) {
+			file_path := filepath.Join(dir, file.Name())
+			// Leemos el contenido del archivo
+			content, err := os.ReadFile(file_path)
+			if err != nil {
+				return err
+			}
+
+			*out += string(content) + "\n"
+		}
+	}
+
+	return nil
+}
+
+func AddStringContentFromFile(file_path string, out *string) error {
+	// Leemos el contenido del archivo
+	content, err := os.ReadFile(file_path)
+	if err == nil {
+		*out += string(content) + "\n"
+		return nil
+	}
+
+	return err
 }
