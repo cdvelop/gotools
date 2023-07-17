@@ -22,8 +22,9 @@ func TestAddStringContendFromDirAndExtension(t *testing.T) {
 		out    string
 		expect string
 	}{
-		"leyendo fichero único css": {"test", ".css", "", css},
-		"leyendo 2 ficheros txt":    {"test", ".txt", "", file_txt},
+		"leyendo fichero único css":           {"test", ".css", "", css},
+		"leyendo 2 ficheros txt":              {"test", ".txt", "", file_txt},
+		"extension no existe no retorna nada": {"test", ".nil", "", ""},
 	}
 
 	for testName, data := range testData {
