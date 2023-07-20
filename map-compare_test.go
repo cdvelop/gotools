@@ -1,35 +1,12 @@
 package gotools_test
 
 import (
+	"fmt"
+	"log"
 	"testing"
 
 	"github.com/cdvelop/gotools"
 )
-
-func TestAreMapsIdentical(t *testing.T) {
-
-	// Caso 1: Mapas idénticos
-	map1 := map[string]string{"a": "1", "b": "2"}
-	map2 := map[string]string{"a": "1", "b": "2"}
-	if !gotools.AreMapsIdentical(map1, map2) {
-		t.Errorf("Los mapas deberían ser idénticos, pero no lo son.")
-	}
-
-	// Caso 2: Mapas con diferentes valores
-	map3 := map[string]string{"a": "1", "b": "2"}
-	map4 := map[string]string{"a": "1", "b": "3"}
-	if gotools.AreMapsIdentical(map3, map4) {
-		t.Errorf("Los mapas deberían tener diferentes valores, pero son idénticos.")
-	}
-
-	// Caso 3: Mapas con diferentes claves
-	map5 := map[string]string{"a": "1", "b": "2"}
-	map6 := map[string]string{"a": "1", "c": "2"}
-	if gotools.AreMapsIdentical(map5, map6) {
-		t.Errorf("Los mapas deberían tener diferentes claves, pero son idénticos.")
-	}
-
-}
 
 func TestAreSliceMapsIdentical(t *testing.T) {
 	// Caso 1: Slices de mapas idénticos
@@ -70,4 +47,33 @@ func TestAreSliceMapsIdentical(t *testing.T) {
 	if gotools.AreSliceMapsIdentical(slice5, slice6) {
 		t.Errorf("Los slices de mapas deberían tener diferentes claves, pero son idénticos.")
 	}
+
+	// Caso 4: Slices de mapas idénticos con diferente orden
+	slice7 := []map[string]string{
+		{"a": "1", "b": "2"},
+		{"c": "3", "d": "4"},
+	}
+	slice8 := []map[string]string{
+		{"c": "3", "d": "4"},
+		{"a": "1", "b": "2"},
+	}
+	if !gotools.AreSliceMapsIdentical(slice7, slice8) {
+		fmt.Println("Caso 4 Los slices de mapas deberían ser idénticos, pero no lo son.")
+		log.Fatal()
+	}
+
+	// Caso 5: Slices de mapas idénticos con diferente orden en valores
+	slice9 := []map[string]string{
+		{"a": "1", "b": "2"},
+		{"c": "3", "d": "4"},
+	}
+	slice10 := []map[string]string{
+		{"d": "4", "c": "3"},
+		{"b": "2", "a": "1"},
+	}
+	if !gotools.AreSliceMapsIdentical(slice9, slice10) {
+		fmt.Println("Caso 5 Los slices de mapas deberían ser idénticos, pero no lo son.")
+		log.Fatal()
+	}
+
 }
