@@ -14,3 +14,13 @@ func ExtractTwoPointArgument(option string, field *string) error {
 	}
 	return nil
 }
+
+// remover \cmd ej: "mi_directorio\cmd"  "\\cmd"
+func RemoveSuffixIfPresent(path *string, suffix string) {
+	if path != nil {
+		if strings.Contains(*path, suffix) {
+			// Si el path tiene la extensión que queremos eliminar, la quitamos
+			*path = (*path)[:len(*path)-len(suffix)]
+		}
+	}
+}
