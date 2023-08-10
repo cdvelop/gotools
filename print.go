@@ -1,9 +1,11 @@
 package gotools
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // opt: ok,err,warn,info
-func Print(opt string, message interface{}) {
+func print(opt string, message interface{}) {
 	var color string
 	switch opt {
 	case "ok":
@@ -19,4 +21,19 @@ func Print(opt string, message interface{}) {
 	}
 
 	fmt.Printf("\033[%sm%s\033[0m", color, message)
+}
+
+func PrintOK(message interface{}) {
+	print("ok", message)
+}
+
+func PrintWarning(message interface{}) {
+	print("warn", message)
+}
+func PrintError(message interface{}) {
+	print("err", message)
+}
+
+func PrintInfo(message interface{}) {
+	print("info", message)
 }
