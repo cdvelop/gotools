@@ -9,18 +9,24 @@ import (
 )
 
 func TestGetInputNamesFromGoFile(t *testing.T) {
+
 	var testData = map[string]struct {
 		file_path string
 		pattern   string
 		expected  []string
 	}{
 		"búsqueda de inputs_1 se esperan 3": {"test/inputs_1.txt", model.INPUT_PATTERN, []string{"Phone", "RadioGenero", "TextArea"}},
+		"inputs-rand se esperan n":          {"test/inputs-rand.txt2", model.INPUT_PATTERN, []string{"CheckBox", "Pk", "Rut", "TextOnly", "DateAge", "TextArea", "RadioGenero"}},
 	}
 
 	for testName, data := range testData {
 		t.Run(testName, func(t *testing.T) {
 
 			resp, err := gotools.GetNamesFromFileAndPattern(data.file_path, data.pattern)
+
+			if len(resp) != len(data.expected) {
+				log.Fatalln("se esperaban ", len(data.expected), "elementos y se obtuvieron: ", len(resp), " ", resp)
+			}
 
 			// Comparar elemento por elemento
 			for i, valor := range resp {

@@ -63,11 +63,17 @@ func GetNamesFromFileAndPattern(file_path, pattern string) (out []string, err er
 	scanner := bufio.NewScanner(file)
 	inputPattern := regexp.MustCompile(pattern)
 
+	register := map[string]struct{}{}
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		match := inputPattern.FindStringSubmatch(line)
+
 		if match != nil {
-			out = append(out, match[1])
+			if _, exist := register[match[1]]; !exist {
+				out = append(out, match[1])
+				register[match[1]] = struct{}{}
+			}
 		}
 	}
 
