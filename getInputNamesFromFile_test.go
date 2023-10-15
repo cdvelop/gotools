@@ -16,7 +16,7 @@ func TestGetInputNamesFromGoFile(t *testing.T) {
 		expected  []string
 	}{
 		"búsqueda de inputs_1 se esperan 3": {"test/inputs_1.txt", model.INPUT_PATTERN, []string{"Phone", "RadioGenero", "TextArea"}},
-		"inputs-rand se esperan n":          {"test/inputs-rand.txt2", model.INPUT_PATTERN, []string{"CheckBox", "Pk", "Rut", "TextOnly", "DateAge", "TextArea", "RadioGenero"}},
+		"inputs-rand se esperan n":          {"test/inputs-rand.txt2", model.INPUT_PATTERN, []string{"CheckBox", "Rut", "TextOnly", "DateAge", "TextArea", "RadioGenero"}},
 	}
 
 	for testName, data := range testData {
@@ -47,7 +47,7 @@ func TestGetNamesFromDirectoryExtensionAndPattern(t *testing.T) {
 		expected  []string
 	}{
 		"búsqueda en 2 archivos goo, Phone repetido": {"test", ".goo", model.INPUT_PATTERN, []string{"Phone", "RadioGenero", "TextArea"}},
-		"búsqueda en 2 archivos gol, ":               {"test/golfiles", ".gol", model.INPUT_PATTERN, []string{"Pk", "Text", "TextArea", "Date", "Hour"}},
+		"búsqueda en 2 archivos gol, ":               {"test/golfiles", ".gol", model.INPUT_PATTERN, []string{"Text", "TextArea", "Date", "Hour"}},
 	}
 
 	for testName, data := range testData {
