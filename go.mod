@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/cdvelop/input v0.0.26
-	github.com/cdvelop/model v0.0.54
+	github.com/cdvelop/model v0.0.55
 	golang.org/x/text v0.12.0
 )
 
