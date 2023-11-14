@@ -38,7 +38,7 @@ func ReadFiles(dir, ext string, buffer_out *bytes.Buffer) (err error) {
 	return
 }
 
-func ReadFile(file string, buffer_out *bytes.Buffer) error {
+func FileGet(file string, buffer_out *bytes.Buffer) error {
 	// Leemos el contenido del archivo
 	content, err := os.ReadFile(file)
 	if err != nil {
