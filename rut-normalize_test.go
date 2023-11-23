@@ -29,8 +29,8 @@ func Test_RutNormalize(t *testing.T) {
 		t.Run((prueba), func(t *testing.T) {
 			err := gotools.RutNormalize(&data.inputData)
 			var resp string
-			if err != nil {
-				resp = err.Error()
+			if err != "" {
+				resp = err
 			}
 
 			if data.inputData != data.expected {
