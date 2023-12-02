@@ -3,14 +3,14 @@ module github.com/cdvelop/gotools
 go 1.20
 
 require (
-	github.com/cdvelop/input v0.0.26
-	golang.org/x/text v0.12.0
+	github.com/cdvelop/input v0.0.57
+	golang.org/x/text v0.14.0
 )
 
 require (
-	github.com/cdvelop/model v0.0.73 // indirect
+	github.com/cdvelop/model v0.0.74 // indirect
 	github.com/cdvelop/strings v0.0.7 // indirect
-	github.com/cdvelop/timetools v0.0.19 // indirect
+	github.com/cdvelop/timetools v0.0.23 // indirect
 )
 
 replace github.com/cdvelop/model => ../model
