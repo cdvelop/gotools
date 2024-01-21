@@ -9,7 +9,7 @@ require (
 
 require (
 	github.com/cdvelop/model v0.0.119 // indirect
-	github.com/cdvelop/timetools v0.0.38 // indirect
+	github.com/cdvelop/timetools v0.0.39 // indirect
 )
 
 replace github.com/cdvelop/model => ../model
